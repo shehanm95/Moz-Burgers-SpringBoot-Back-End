@@ -129,6 +129,88 @@ public class productController {
         return productService.savep(product);
     }
 
+    @PutMapping("/update/simple")
+    public Product updateProductObj(@RequestBody Product product){
+        Optional<Product> p = productService.getById(product.getId());
+        p.ifPresent(pr -> {
+            product.setImagePath(pr.getImagePath());
+        });
+        return productService.savep(product);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public void deleteProduct(@PathVariable int id){
+         productService.delete(id);
+    }
+
+    @PutMapping("/update")
+    public Product updateProduct(
+            @RequestParam("id") int id,
+            @RequestParam("name") String name,
+            @RequestParam("description") String description,
+            @RequestParam("category") int category,
+            @RequestParam("quantity") int quantity,
+            @RequestParam("price") double price,
+            @RequestParam(value = "image", required = false) MultipartFile image) {
+
+        // Handle the file upload if the image is provided
+        System.out.println("product updated");
+        String savedImagePath = null;
+        if (image != null && !image.isEmpty()) {
+            try {
+                Optional<Product> originalProduct = productService.getById(id);
+                originalProduct.ifPresent(product -> {
+                    deleteImage(product.getImagePath());
+                });
+
+                // Generate a unique file name to avoid overwriting
+                String uniqueFileName = UUID.randomUUID().toString() + "_" + image.getOriginalFilename();
+                Path filePath = Paths.get(UPLOAD_DIR + uniqueFileName);
+
+                // Save the image to the file system
+                Files.copy(image.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+                savedImagePath = uniqueFileName;
+                System.out.println("Image saved to: " + savedImagePath);
+
+            } catch (IOException e) {
+                System.out.println("==================== ERROR :" + e.toString());
+            }
+        } else {
+            // If no image is provided, retain the original image path
+            Optional<Product> originalProduct = productService.getById(id);
+            if (originalProduct.isPresent()) {
+                savedImagePath = originalProduct.get().getImagePath();
+            }
+        }
+
+        // Create a new Product object with the updated details
+        Product product = new Product(
+                id,
+                name,
+                description,
+                category,
+                savedImagePath,
+                quantity,
+                price
+        );
+
+        // Save the updated product and return it
+        return productService.savep(product);
+    }
+
+
+    @DeleteMapping("/deleteImage/{imageName}")
+    public void deleteImage(String imageName){
+        String imagePathStr = UPLOAD_DIR + imageName;
+        Path imagePath = Paths.get(imagePathStr);
+        try {
+            Files.delete(imagePath);
+        } catch (IOException e) {
+            System.out.println("no image to delete");
+        }
+    }
+
 
     @PostMapping("/saveBulk")
     public void saveProductBulk(@RequestBody List<Product> p){

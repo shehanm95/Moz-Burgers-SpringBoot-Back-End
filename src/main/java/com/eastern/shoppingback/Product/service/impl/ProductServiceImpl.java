@@ -34,4 +34,9 @@ public class ProductServiceImpl implements ProductService {
     public Optional<Product> getById(int id) {
         return productRepo.findById(id);
     }
+
+    @Override
+    public void delete(int id) {
+        productRepo.deleteById(id);
+    }
 }

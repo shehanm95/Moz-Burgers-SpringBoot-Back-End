@@ -1,9 +1,7 @@
 package com.eastern.shoppingback.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.core.SpringVersion;
 
 import java.time.LocalDate;
@@ -13,6 +11,8 @@ import java.time.LocalDate;
 @Table(name = "Product")
 @NoArgsConstructor
 @Data
+@Getter
+@Setter
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

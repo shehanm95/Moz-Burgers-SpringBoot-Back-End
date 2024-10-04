@@ -14,4 +14,6 @@ public interface ProductService {
     void savep(List<Product> product);
 
     Optional<Product> getById(int id);
+
+    void delete(int id);
 }
