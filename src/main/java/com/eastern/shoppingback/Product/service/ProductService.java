@@ -1,6 +1,6 @@
-package com.eastern.shoppingback.service;
+package com.eastern.shoppingback.Product.service;
 
-import com.eastern.shoppingback.model.Product;
+import com.eastern.shoppingback.Product.model.Product;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,4 +1,4 @@
-package com.eastern.shoppingback.model;
+package com.eastern.shoppingback.Product.model;
 
 import jakarta.persistence.*;
 import lombok.*;

@@ -1,8 +1,8 @@
-package com.eastern.shoppingback.service.impl;
+package com.eastern.shoppingback.Product.service.impl;
 
-import com.eastern.shoppingback.model.Product;
-import com.eastern.shoppingback.repo.ProductRepo;
-import com.eastern.shoppingback.service.ProductService;
+import com.eastern.shoppingback.Product.model.Product;
+import com.eastern.shoppingback.Product.repo.ProductRepo;
+import com.eastern.shoppingback.Product.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

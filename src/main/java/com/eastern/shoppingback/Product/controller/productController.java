@@ -1,7 +1,7 @@
-package com.eastern.shoppingback.controller;
+package com.eastern.shoppingback.Product.controller;
+import com.eastern.shoppingback.Product.model.Product;
+import com.eastern.shoppingback.Product.service.ProductService;
 import org.springframework.core.io.Resource;
-import com.eastern.shoppingback.model.Product;
-import com.eastern.shoppingback.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;

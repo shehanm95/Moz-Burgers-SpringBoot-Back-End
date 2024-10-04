@@ -8,12 +8,24 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class CustomerService {
+public class CustomerServiceImpl implements CusomterService {
 
     @Autowired
     CustomerRepo customerRepo;
 
+    @Override
     public List<Customer> getAll() {
         return customerRepo.findAll();
+    }
+
+    @Override
+    public Customer save(Customer customer) {
+        return customerRepo.save(customer);
+    }
+
+    @Override
+    public void delete(int id) {
+        customerRepo.deleteById(id);
+        System.out.println("calling delete ========");
     }
 }
